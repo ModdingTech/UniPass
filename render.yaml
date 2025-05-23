@@ -1,0 +1,24 @@
+name: bus-pass-system
+services:
+  - type: web
+    name: bus-pass-system
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    healthCheckPath: /health
+    healthCheckIntervalSeconds: 30
+    healthCheckTimeoutSeconds: 5
+    healthCheckUnhealthyThreshold: 3
+    healthCheckHealthyThreshold: 2
+    minReplicas: 1
+    maxReplicas: 1
+    cpu: 1
+    memory: 1024
+    disk: 1024
+    ports:
+      - port: 8080
+        protocol: HTTP
+    environment: production
